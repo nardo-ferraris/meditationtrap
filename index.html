@@ -1,0 +1,26 @@
+<div id="popup" style="background: white; border: 2px solid red; padding: 20px; text-align: center;">
+    <h3>Vuoi davvero rinunciare alla tua serenità mentale?</h3>
+    <p>Se chiudi ora, i tuoi livelli di stress aumenteranno del 40% entro sera.</p>
+    
+    <button onclick="continueTrial()" style="background: green; color: white; padding: 15px; font-weight: bold;">
+        SÌ, VOGLIO ESSERE FELICE (Prova Gratis 3gg)
+    </button>
+    
+    <br>
+    
+    <button onclick="closeApp()" style="background: transparent; border: none; font-size: 0.7em; text-decoration: underline; color: gray;">
+        No, preferisco fallire nella vita e restare ansioso.
+    </button>
+</div>
+
+<script>
+    // Semplice logica per l'Infinite Scroll
+    window.onscroll = function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            // Quando l'utente arriva in fondo, aggiungiamo nuovi contenuti all'infinito
+            let newContent = document.createElement("div");
+            newContent.innerHTML = "<p>Citazione zen infinita... continua a scorrere...</p>";
+            document.body.appendChild(newContent);
+        }
+    };
+</script>
