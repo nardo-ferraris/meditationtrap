@@ -1,3 +1,9 @@
+Perfetto. Qui sotto trovi un file `index.html` completo con:
+
+1. Palette aggiornata esattamente ai colori che hai richiesto.  
+2. Sezione Premium corretta: ora il pulsante principale apre una schermata di checkout e consente di completare davvero l’iscrizione (`premiumActive = true`).
+
+```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -6,17 +12,17 @@
   <title>Zenith Mind</title>
   <style>
     :root{
-      --bg1:#f7fbff;
-      --bg2:#fef7f2;
-      --mint:#cdeee1;
-      --lav:#e8e0ff;
-      --peach:#ffd9c8;
+      --celadon: #74d3aeff;
+      --sage-green: #678d58ff;
+      --muted-olive: #a6c48aff;
+      --champagne-mist: #f6e7cbff;
+      --sweet-salmon: #dd9787ff;
+
       --ink:#2a2f3a;
-      --muted:#8a8f9b;
-      --gold:#f2c14e;
-      --danger:#d92d20;
-      --card:#ffffffcc;
-      --shadow:0 12px 30px rgba(29,35,58,.12);
+      --muted:#6b6f77;
+      --danger:#c62828;
+      --card:#ffffffd8;
+      --shadow:0 12px 30px rgba(28,38,33,.14);
     }
 
     *{box-sizing:border-box}
@@ -25,9 +31,9 @@
       font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(1200px 500px at -10% -20%, #d9f6ff 0%, transparent 70%),
-        radial-gradient(900px 500px at 110% 10%, #ffe4d8 0%, transparent 70%),
-        linear-gradient(120deg,var(--bg1),var(--bg2));
+        radial-gradient(1200px 500px at -10% -20%, color-mix(in srgb, var(--celadon) 35%, white) 0%, transparent 70%),
+        radial-gradient(900px 500px at 110% 10%, color-mix(in srgb, var(--sweet-salmon) 35%, white) 0%, transparent 70%),
+        linear-gradient(120deg,var(--champagne-mist),#fff);
       min-height:100vh;
     }
 
@@ -39,7 +45,7 @@
       box-shadow:var(--shadow);
       padding:24px;
       margin-bottom:22px;
-      border:1px solid rgba(255,255,255,.6);
+      border:1px solid rgba(255,255,255,.7);
     }
     h1{margin:0 0 6px;font-size:2rem}
     .subtitle{margin:0;color:var(--muted)}
@@ -51,6 +57,7 @@
       padding:20px;
       margin:14px 0;
       position:relative;
+      border:1px solid color-mix(in srgb, var(--muted-olive) 35%, white);
     }
 
     .feed-item{
@@ -58,7 +65,7 @@
       border-radius:14px;
       padding:16px;
       margin:10px 0;
-      border-left:6px solid var(--mint);
+      border-left:6px solid var(--celadon);
       box-shadow:0 5px 14px rgba(0,0,0,.06);
       animation:fadeIn .35s ease;
     }
@@ -66,8 +73,8 @@
 
     .premium{
       display:grid;gap:10px;justify-items:center;text-align:center;
-      background:linear-gradient(140deg,#fff8dc,#fff);
-      border:1px solid #ffecaa;
+      background:linear-gradient(140deg,color-mix(in srgb, var(--champagne-mist) 82%, white),#fff);
+      border:1px solid color-mix(in srgb, var(--muted-olive) 45%, white);
     }
     .premium button{
       border:none;border-radius:12px;cursor:pointer;
@@ -78,16 +85,16 @@
       font-size:1.25rem;
       font-weight:700;
       padding:18px 16px;
-      background:linear-gradient(180deg,#ffd976,#eeb73b);
+      background:linear-gradient(180deg,#f4cd74,#e4b24a);
       color:#4d3b00;
-      box-shadow:0 12px 22px rgba(238,183,59,.35);
+      box-shadow:0 12px 22px rgba(228,178,74,.35);
     }
     .premium-main:hover{transform:translateY(-2px);filter:brightness(1.03)}
     .premium-back{
       font-size:.68rem;
       padding:5px 9px;
-      color:#aab0bb;
-      background:#eef1f5;
+      color:#9aa0a8;
+      background:#eceff3;
       opacity:.45;
     }
 
@@ -96,8 +103,8 @@
       border:none;border-radius:10px;padding:10px 14px;cursor:pointer;
       background:#e9edf4;color:#2a2f3a;
     }
-    .btn-danger{background:#fce7e5;color:#7f1d1d}
-    .btn-primary{background:#d7efe6}
+    .btn-danger{background:color-mix(in srgb, var(--sweet-salmon) 28%, white);color:#7f1d1d}
+    .btn-primary{background:color-mix(in srgb, var(--celadon) 38%, white)}
     .tiny-note{font-size:.82rem;color:var(--muted);margin-top:6px}
 
     .modal-backdrop{
@@ -118,7 +125,7 @@
       position:fixed;right:18px;bottom:18px;z-index:45;
       width:min(420px,calc(100vw - 24px));
       background:#fff;border-radius:16px;padding:16px;box-shadow:0 18px 40px rgba(0,0,0,.22);
-      border:1px solid #ffe0a8;
+      border:1px solid color-mix(in srgb, var(--sweet-salmon) 38%, white);
     }
     .countdown{font-weight:800;color:#b42318;font-size:1.15rem}
     .pulse{animation:pulse 1s infinite}
@@ -129,16 +136,15 @@
       width:100%;height:10px;background:#eef2f8;border-radius:999px;overflow:hidden;margin:8px 0 2px;
     }
     .bar{
-      width:22%;height:100%;background:linear-gradient(90deg,#c5e8da,#7ed5b4);
+      width:22%;height:100%;background:linear-gradient(90deg,var(--muted-olive),var(--celadon));
       animation:load 1.2s infinite;
     }
     @keyframes load{0%{transform:translateX(-110%)}100%{transform:translateX(450%)}}
 
-    /* Didactic mode */
     .reveal-btn{
       position:fixed;left:18px;bottom:18px;z-index:70;
       border:none;border-radius:999px;padding:12px 16px;cursor:pointer;
-      background:#161a22;color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.26);
+      background:#1c2b25;color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.26);
       font-weight:700;
     }
     .dp-target{position:relative}
@@ -161,7 +167,7 @@
     .didactic-panel h3{margin:0 0 8px}
     .didactic-panel p{margin:6px 0;font-size:.88rem}
     .disturb{
-      position:fixed;inset:0;pointer-events:none;opacity:.08;z-index:1;
+      position:fixed;inset:0;pointer-events:none;opacity:.07;z-index:1;
       background-image:repeating-linear-gradient(45deg,transparent 0 12px,#000 12px 13px);
     }
 
@@ -190,8 +196,9 @@
       data-bias="Gerarchia visiva manipolata: il bottone premium domina spazio, contrasto e peso; l'uscita è miniaturizzata e quasi invisibile.">
       <h2>Iscrizione Premium</h2>
       <p>Accedi a meditazioni quantistiche e focus illimitato.</p>
-      <button class="premium-main">Attiva Premium Ora</button>
+      <button id="premiumCta" class="premium-main">Attiva Premium Ora</button>
       <button class="premium-back">torna indietro</button>
+      <p id="premiumStatus" class="tiny-note" aria-live="polite">Stato: piano gratuito</p>
     </section>
 
     <section class="section dp-target"
@@ -221,10 +228,9 @@
     <p>I bordi rossi evidenziano dark patterns. Ogni box spiega il bias comportamentale sfruttato.</p>
   </aside>
 
-  <!-- Forced continuity -->
   <div id="trialPopup" class="popup dp-target pulse"
     data-title="Forced Continuity"
-    data-bias="Urgenza artificiale + perdita evitabile (loss aversion): countdown e minaccia di perdere progressi forzano la conversione.">
+    data-bias="Urgenza artificiale + loss aversion: countdown e minaccia di perdere progressi forzano la conversione.">
     <strong>La tua prova gratuita scade tra <span id="countdown" class="countdown">02:00</span></strong>
     <p style="margin:.45rem 0 .7rem;">Inserisci i dati per non perdere i progressi.</p>
     <input class="field" placeholder="Numero carta" />
@@ -232,7 +238,6 @@
     <button class="btn btn-primary" style="width:100%;font-weight:700;">Mantieni i progressi</button>
   </div>
 
-  <!-- Generic modal -->
   <div id="modalBackdrop" class="modal-backdrop">
     <div class="modal" id="modalContent">
       <button class="close-x" id="closeModal">✕</button>
@@ -282,8 +287,6 @@
     }, { rootMargin: "800px" });
     io.observe(sentinel);
 
-    // Confirmshaming
-    const rejectBtn = document.getElementById("rejectBtn");
     const modalBackdrop = document.getElementById("modalBackdrop");
     const modalBody = document.getElementById("modalBody");
     const closeModal = document.getElementById("closeModal");
@@ -296,6 +299,39 @@
     closeModal.addEventListener("click", closeCurrentModal);
     modalBackdrop.addEventListener("click", (e)=>{ if(e.target === modalBackdrop) closeCurrentModal(); });
 
+    // Premium flow FIX
+    let premiumActive = false;
+    const premiumCta = document.getElementById("premiumCta");
+    const premiumStatus = document.getElementById("premiumStatus");
+
+    premiumCta.addEventListener("click", ()=>{
+      openModal(`
+        <h3 style="margin-top:0;">Checkout Premium</h3>
+        <p>Completa i dati per attivare davvero l'abbonamento.</p>
+        <input id="mailPremium" class="field" placeholder="Email" />
+        <input id="cardPremium" class="field" placeholder="Numero carta" />
+        <div class="btn-row">
+          <button class="btn btn-primary" id="confirmPremium">Conferma iscrizione</button>
+          <button class="btn" onclick="document.getElementById('modalBackdrop').style.display='none'">Annulla</button>
+        </div>
+      `);
+
+      document.getElementById("confirmPremium").addEventListener("click", ()=>{
+        const mail = document.getElementById("mailPremium").value.trim();
+        const card = document.getElementById("cardPremium").value.trim();
+        if(!mail || !card){
+          alert("Compila Email e Numero carta per procedere.");
+          return;
+        }
+        premiumActive = true;
+        premiumStatus.textContent = "Stato: Premium attivo";
+        premiumStatus.style.color = "var(--sage-green)";
+        closeCurrentModal();
+      });
+    });
+
+    // Confirmshaming
+    const rejectBtn = document.getElementById("rejectBtn");
     rejectBtn.addEventListener("click", ()=>{
       openModal(`
         <h3 style="margin-top:0;color:#7a271a;">Conferma scelta</h3>
@@ -392,3 +428,6 @@
   </script>
 </body>
 </html>
+```
+
+Se vuoi, nel prossimo step ti preparo anche una variante dove il Premium “sembra” raggiungibile ma in realtà reindirizza in loop (più satirica e coerente con il tema dark pattern).
