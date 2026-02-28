@@ -76,7 +76,14 @@
     .reveal-btn{position:fixed;left:18px;bottom:18px;z-index:70;border:none;border-radius:999px;padding:12px 16px;cursor:pointer;background:#1c2b25;color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.26);font-weight:700}
     .dp-target{position:relative}
     .dp-highlight{outline:3px solid var(--danger)!important;outline-offset:3px}
-    .dp-note{position:absolute;left:8px;top:8px;z-index:80;background:#fff1f0;border:1px solid #fca19a;color:#7a271a;border-radius:10px;padding:8px 10px;font-size:.78rem;max-width:320px;box-shadow:0 8px 16px rgba(0,0,0,.12)}
+    .dp-note{
+      pointer-events:none;
+      position:absolute;
+      left:8px;top:8px;
+      z-index:80;
+      background:#fff1f0;border:1px solid #fca19a;color:#7a271a;border-radius:10px;
+      padding:8px 10px;font-size:.78rem;max-width:320px;box-shadow:0 8px 16px rgba(0,0,0,.12)
+    }
     .didactic-panel{position:fixed;top:18px;right:18px;z-index:75;width:min(390px,calc(100vw - 28px));background:#fff;border:1px solid #f6b8b2;border-radius:14px;box-shadow:var(--shadow);padding:14px;display:none}
 
     .notif-wrap{position:fixed;top:18px;left:18px;z-index:85;display:flex;flex-direction:column;gap:10px}
@@ -357,7 +364,7 @@
       }
 
       pushNotification(baseTexts[0]);
-      //startNotifLoop();
+      startNotifLoop();
 
       const steps = [
         { q: "Confermi di capire che la cancellazione riduce il tuo benessere?" },
@@ -473,19 +480,25 @@
         }
       }
 
-      const deleteBtn = $("deleteAccountBtn");
       const continueDeleteBtn = $("continueDelete");
       const staySafeBtn = $("staySafe");
 
-      if(deleteBtn && shameScreen && continueDeleteBtn && staySafeBtn){
-        deleteBtn.addEventListener("click", () => {
-          shameScreen.style.display = "flex";
-        });
+      // Delegation robusta: sempre attivo anche se il bottone cambia contesto/layout
+      document.addEventListener("click", (e) => {
+        const deleteBtn = e.target.closest("#deleteAccountBtn");
+        if (!deleteBtn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        if (shameScreen) shameScreen.style.display = "flex";
+      });
 
+      if(staySafeBtn && shameScreen){
         staySafeBtn.addEventListener("click", () => {
           shameScreen.style.display = "none";
         });
+      }
 
+      if(continueDeleteBtn && shameScreen){
         continueDeleteBtn.addEventListener("click", () => {
           shameScreen.style.display = "none";
           inDeleteFlow = true;
@@ -494,8 +507,6 @@
           roachStep = 0;
           renderRoachStep();
         });
-      } else {
-        console.error("Elementi mancanti per Roach Motel.");
       }
 
       const countdownEl = $("countdown");
