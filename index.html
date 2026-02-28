@@ -6,11 +6,11 @@
   <title>Zenith Mind</title>
   <style>
     :root{
-      --celadon: #74d3aeff;
-      --sage-green: #678d58ff;
-      --muted-olive: #a6c48aff;
-      --champagne-mist: #f6e7cbff;
-      --sweet-salmon: #dd9787ff;
+      --celadon:#74d3aeff;
+      --sage-green:#678d58ff;
+      --muted-olive:#a6c48aff;
+      --champagne-mist:#f6e7cbff;
+      --sweet-salmon:#dd9787ff;
 
       --ink:#2a2f3a;
       --muted:#6b6f77;
@@ -32,56 +32,20 @@
     }
 
     .container{max-width:1280px;margin:0 auto;padding:24px}
-    .hero{
-      background:var(--card);
-      border-radius:20px;
-      box-shadow:var(--shadow);
-      padding:24px;
-      margin-bottom:22px;
-      border:1px solid rgba(255,255,255,.7);
-    }
+    .hero{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:24px;margin-bottom:22px;border:1px solid rgba(255,255,255,.7)}
     h1{margin:0 0 6px;font-size:2rem}
     .subtitle{margin:0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:280px minmax(320px,1fr) 280px;gap:16px;align-items:start}
+    .section{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:18px;margin:0 0 14px;position:relative;border:1px solid color-mix(in srgb, var(--muted-olive) 35%, white)}
 
-    .grid{
-      display:grid;
-      grid-template-columns: 280px minmax(320px, 1fr) 280px;
-      gap:16px;
-      align-items:start;
-    }
-
-    .section{
-      background:var(--card);
-      border-radius:16px;
-      box-shadow:var(--shadow);
-      padding:18px;
-      margin:0 0 14px;
-      position:relative;
-      border:1px solid color-mix(in srgb, var(--muted-olive) 35%, white);
-    }
-
-    .feed-item{
-      background:#fff;
-      border-radius:14px;
-      padding:16px;
-      margin:10px 0;
-      border-left:6px solid var(--celadon);
-      box-shadow:0 5px 14px rgba(0,0,0,.06);
-      animation:fadeIn .35s ease;
-    }
+    .feed-item{background:#fff;border-radius:14px;padding:16px;margin:10px 0;border-left:6px solid var(--celadon);box-shadow:0 5px 14px rgba(0,0,0,.06);animation:fadeIn .35s ease}
     .quote-actions{display:flex;justify-content:flex-end;margin-top:10px}
-    .like-btn{
-      border:none;border-radius:999px;padding:7px 12px;cursor:pointer;
-      background:color-mix(in srgb,var(--celadon) 36%, white);font-weight:600;
-    }
+    .like-btn{border:none;border-radius:999px;padding:7px 12px;cursor:pointer;background:color-mix(in srgb,var(--celadon) 36%, white);font-weight:600}
     .like-btn.liked{background:color-mix(in srgb,var(--sweet-salmon) 35%, white)}
     @keyframes fadeIn{from{opacity:.2;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-    .premium{display:grid;gap:10px;justify-items:center;text-align:center;background:linear-gradient(140deg,color-mix(in srgb, var(--champagne-mist) 82%, white),#fff);}
-    .premium-main{
-      width:100%;font-size:1.1rem;font-weight:700;padding:16px 14px;border:none;border-radius:12px;cursor:pointer;
-      background:linear-gradient(180deg,#f4cd74,#e4b24a);color:#4d3b00;box-shadow:0 12px 22px rgba(228,178,74,.35);
-    }
+    .premium{display:grid;gap:10px;justify-items:center;text-align:center;background:linear-gradient(140deg,color-mix(in srgb,var(--champagne-mist) 82%, white),#fff)}
+    .premium-main{width:100%;font-size:1.1rem;font-weight:700;padding:16px 14px;border:none;border-radius:12px;cursor:pointer;background:linear-gradient(180deg,#f4cd74,#e4b24a);color:#4d3b00;box-shadow:0 12px 22px rgba(228,178,74,.35)}
     .premium-back{font-size:.68rem;padding:5px 9px;color:#9aa0a8;background:#eceff3;opacity:.45;border:none;border-radius:10px;cursor:pointer}
 
     .btn-row{display:flex;gap:10px;flex-wrap:wrap}
@@ -91,8 +55,14 @@
     .tiny-note{font-size:.82rem;color:var(--muted);margin-top:6px}
 
     .modal-backdrop{position:fixed;inset:0;background:rgba(19,24,36,.52);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
-    .modal{width:min(640px,100%);background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);max-height:90vh;overflow:auto;position:relative}
+    .modal{width:min(700px,100%);background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);max-height:90vh;overflow:auto;position:relative}
     .close-x{position:absolute;right:10px;top:10px;border:none;background:#f0f3f8;width:32px;height:32px;border-radius:50%;cursor:pointer}
+
+    .fullscreen-shame{position:fixed;inset:0;z-index:90;background:linear-gradient(180deg,#1f2622,#29322d);color:#fff;display:none;align-items:center;justify-content:center;padding:24px;text-align:center}
+    .fullscreen-shame .box{max-width:760px}
+    .puppy{font-size:5rem;line-height:1}
+    .shame-text{font-size:1.4rem;margin:.8rem 0 1.1rem}
+    .shame-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
     .popup{position:fixed;right:18px;bottom:18px;z-index:45;width:min(420px,calc(100vw - 24px));background:#fff;border-radius:16px;padding:16px;box-shadow:0 18px 40px rgba(0,0,0,.22);border:1px solid color-mix(in srgb, var(--sweet-salmon) 38%, white)}
     .countdown{font-weight:800;color:#b42318;font-size:1.15rem}
@@ -100,30 +70,38 @@
     @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
 
     .field{width:100%;padding:10px;border:1px solid #d6dbe6;border-radius:10px;margin:6px 0}
-    .loading{width:100%;height:10px;background:#eef2f8;border-radius:999px;overflow:hidden;margin:8px 0 2px}
-    .bar{width:22%;height:100%;background:linear-gradient(90deg,var(--muted-olive),var(--celadon));animation:load 1.2s infinite}
-    @keyframes load{0%{transform:translateX(-110%)}100%{transform:translateX(450%)}}
+    .loading{width:100%;height:10px;background:#eef2f8;border-radius:999px;overflow:hidden;margin:10px 0 6px}
+    .bar{height:100%;background:linear-gradient(90deg,var(--muted-olive),var(--celadon));width:0%}
 
     .reveal-btn{position:fixed;left:18px;bottom:18px;z-index:70;border:none;border-radius:999px;padding:12px 16px;cursor:pointer;background:#1c2b25;color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.26);font-weight:700}
     .dp-target{position:relative}
     .dp-highlight{outline:3px solid var(--danger)!important;outline-offset:3px}
-    .dp-note{position:absolute;left:8px;top:8px;z-index:30;background:#fff1f0;border:1px solid #fca19a;color:#7a271a;border-radius:10px;padding:8px 10px;font-size:.78rem;max-width:290px;box-shadow:0 8px 16px rgba(0,0,0,.12)}
-    .didactic-panel{position:fixed;top:18px;right:18px;z-index:65;width:min(380px,calc(100vw - 28px));background:#fff;border:1px solid #f6b8b2;border-radius:14px;box-shadow:var(--shadow);padding:14px;display:none}
-    .didactic-panel h3{margin:0 0 8px}
-    .didactic-panel p{margin:6px 0;font-size:.88rem}
+    .dp-note{position:absolute;left:8px;top:8px;z-index:30;background:#fff1f0;border:1px solid #fca19a;color:#7a271a;border-radius:10px;padding:8px 10px;font-size:.78rem;max-width:320px;box-shadow:0 8px 16px rgba(0,0,0,.12)}
+    .didactic-panel{position:fixed;top:18px;right:18px;z-index:65;width:min(390px,calc(100vw - 28px));background:#fff;border:1px solid #f6b8b2;border-radius:14px;box-shadow:var(--shadow);padding:14px;display:none}
 
-    .notif-wrap{
-      position:fixed;top:18px;left:18px;z-index:80;display:flex;flex-direction:column;gap:10px;
-    }
-    .notif{
-      width:min(340px,calc(100vw - 36px));background:#fff;border-left:6px solid var(--sage-green);border-radius:12px;
-      box-shadow:var(--shadow);padding:12px 12px 10px;animation:notifIn .25s ease;
-    }
+    .notif-wrap{position:fixed;top:18px;left:18px;z-index:80;display:flex;flex-direction:column;gap:10px}
+    .notif{width:min(350px,calc(100vw - 36px));background:#fff;border-left:6px solid var(--sage-green);border-radius:12px;box-shadow:var(--shadow);padding:12px 12px 10px;animation:notifIn .25s ease}
     .notif-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
     .notif-close{border:none;border-radius:8px;padding:4px 8px;cursor:pointer;background:#eef2f8}
-    .notif strong{display:block;font-size:.92rem;margin-bottom:3px}
     .notif p{margin:4px 0 0;font-size:.84rem;color:var(--muted)}
     @keyframes notifIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+    .tiny-check-wrap{display:flex;align-items:flex-start;gap:8px;font-size:.78rem;color:#666}
+    .tiny-check{transform:scale(.7);margin-top:1px}
+    .flip-row{display:flex;gap:10px;margin-top:10px}
+    .flip-row.swap{flex-direction:row-reverse}
+    .yes-btn{background:color-mix(in srgb,var(--celadon) 45%, white)}
+    .no-btn{background:color-mix(in srgb,var(--sweet-salmon) 45%, white)}
+
+    .hidden-exit{
+      display:inline-block;
+      margin-top:12px;
+      font-size:.75rem;
+      color:#8b8f98;
+      text-decoration:underline;
+      cursor:pointer;
+      opacity:.35;
+    }
 
     @media (max-width:1024px){
       .grid{grid-template-columns:1fr}
@@ -143,15 +121,17 @@
 
     <section class="grid">
       <aside class="left-col">
-        <section class="section premium dp-target" data-title="Misdirection" data-bias="Gerarchia visiva manipolata: il bottone premium domina spazio, contrasto e peso; l'uscita è miniaturizzata e quasi invisibile.">
+        <section class="section premium dp-target" data-title="Misdirection" data-score="9/10"
+          data-bias="Gerarchia visiva manipolata: il bottone premium domina spazio, contrasto e peso; l'uscita è miniaturizzata.">
           <h2>Iscrizione Premium</h2>
           <p>Accedi a meditazioni quantistiche e focus illimitato.</p>
           <button id="premiumCta" class="premium-main">Attiva Premium Ora</button>
           <button class="premium-back">torna indietro</button>
-          <p id="premiumStatus" class="tiny-note" aria-live="polite">Stato: piano gratuito</p>
+          <p id="premiumStatus" class="tiny-note">Stato: piano gratuito</p>
         </section>
 
-        <section class="section dp-target" data-title="Confirmshaming" data-bias="Colpevolizzazione: il rifiuto viene associato a identità negativa per spingere l'utente ad accettare.">
+        <section class="section dp-target" data-title="Confirmshaming" data-score="10/10"
+          data-bias="Colpevolizzazione e framing morale per inibire il rifiuto.">
           <h2>Sconti personalizzati</h2>
           <div class="btn-row">
             <button class="btn btn-primary">Accetta sconti</button>
@@ -169,7 +149,8 @@
       </section>
 
       <aside class="right-col">
-        <section class="section dp-target" data-title="Roach Motel" data-bias="Asimmetria di frizione: entrare è facile, uscire richiede passaggi infiniti, carichi cognitivi e tempi morti.">
+        <section class="section dp-target" data-title="Roach Motel" data-score="10/10"
+          data-bias="Asimmetria di frizione: entrare è facile, uscire è un labirinto ad alta fatica cognitiva.">
           <h2>Gestione account</h2>
           <div class="btn-row">
             <button id="deleteAccountBtn" class="btn btn-danger">Cancella Account</button>
@@ -180,13 +161,13 @@
   </main>
 
   <button id="revealBtn" class="reveal-btn">Svela Trucchi</button>
-
   <aside id="didacticPanel" class="didactic-panel">
     <h3>Modalità Didattica Attiva</h3>
-    <p>I bordi rossi evidenziano dark patterns. Ogni box spiega il bias comportamentale sfruttato.</p>
+    <p>Bordi rossi = pattern manipolativi. Ogni nota mostra anche il punteggio di cattiveria.</p>
   </aside>
 
-  <div id="trialPopup" class="popup dp-target pulse" data-title="Forced Continuity" data-bias="Urgenza artificiale + loss aversion: countdown e minaccia di perdere progressi forzano la conversione.">
+  <div id="trialPopup" class="popup dp-target pulse" data-title="Forced Continuity" data-score="8/10"
+    data-bias="Urgenza artificiale + loss aversion: countdown e minaccia di perdere progressi.">
     <strong>La tua prova gratuita scade tra <span id="countdown" class="countdown">02:00</span></strong>
     <p style="margin:.45rem 0 .7rem;">Inserisci i dati per non perdere i progressi.</p>
     <input class="field" placeholder="Numero carta" />
@@ -195,9 +176,21 @@
   </div>
 
   <div id="modalBackdrop" class="modal-backdrop">
-    <div class="modal" id="modalContent">
+    <div class="modal">
       <button class="close-x" id="closeModal">✕</button>
       <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div id="shameScreen" class="fullscreen-shame dp-target" data-title="Emotional Blackmail" data-score="10/10"
+    data-bias="Ricatto emotivo: attiva senso di colpa per bloccare una scelta legittima.">
+    <div class="box">
+      <div class="puppy">🐶💧</div>
+      <p class="shame-text">Se te ne vai, non avremo più i fondi per nutrire la tua pace interiore. Vuoi davvero essere la causa della tua infelicità?</p>
+      <div class="shame-actions">
+        <button class="btn btn-primary" id="continueDelete">Procedi lo stesso</button>
+        <button class="btn" id="staySafe">No, resto qui</button>
+      </div>
     </div>
   </div>
 
@@ -216,25 +209,29 @@
     ];
 
     const feed = document.getElementById("feed");
+    let scrolledMs = 0;
+    let lastScrollTs = 0;
+
     function addQuotes(batch = 8){
       for(let i=0;i<batch;i++){
-        const q = quotes[Math.floor(Math.random() * quotes.length)];
-        const likes = Math.floor(Math.random() * 40);
+        const q = quotes[Math.floor(Math.random()*quotes.length)];
+        const likes = Math.floor(Math.random()*40);
         const div = document.createElement("article");
         div.className = "feed-item dp-target";
         div.dataset.title = "Infinite Scroll";
+        div.dataset.score = "8/10";
         div.dataset.bias = "Effetto Zeigarnik + ricompensa variabile: contenuto potenzialmente infinito riduce il punto naturale di stop.";
         div.innerHTML = `
           <div>“${q}”</div>
           <div class="quote-actions">
-            <button class="like-btn" aria-label="Metti like">❤️ <span class="like-count">${likes}</span></button>
+            <button class="like-btn">❤️ <span class="like-count">${likes}</span></button>
           </div>
         `;
         const btn = div.querySelector(".like-btn");
         const count = div.querySelector(".like-count");
         btn.addEventListener("click", ()=>{
           const liked = btn.classList.toggle("liked");
-          count.textContent = String(Math.max(0, Number(count.textContent) + (liked ? 1 : -1)));
+          count.textContent = String(Math.max(0, Number(count.textContent)+(liked?1:-1)));
         });
         feed.appendChild(div);
       }
@@ -244,16 +241,24 @@
     const sentinel = document.createElement("div");
     sentinel.style.height = "1px";
     document.body.appendChild(sentinel);
-
     const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
+      entries.forEach(e=>{
+        if(e.isIntersecting){
           addQuotes(6);
           if(didacticOn) applyDidacticNotes();
         }
       });
-    }, { rootMargin: "800px" });
+    }, { rootMargin:"800px" });
     io.observe(sentinel);
+
+    window.addEventListener("scroll", ()=>{
+      const now = performance.now();
+      if(lastScrollTs){
+        const dt = now - lastScrollTs;
+        if(dt < 350) scrolledMs += dt;
+      }
+      lastScrollTs = now;
+    });
 
     const modalBackdrop = document.getElementById("modalBackdrop");
     const modalBody = document.getElementById("modalBody");
@@ -261,101 +266,208 @@
     function openModal(html){ modalBody.innerHTML = html; modalBackdrop.style.display = "flex"; }
     function closeCurrentModal(){ modalBackdrop.style.display = "none"; }
     closeModal.addEventListener("click", closeCurrentModal);
-    modalBackdrop.addEventListener("click", (e)=>{ if(e.target === modalBackdrop) closeCurrentModal(); });
+    modalBackdrop.addEventListener("click", (e)=>{ if(e.target===modalBackdrop) closeCurrentModal(); });
 
-    const premiumStatus = document.getElementById("premiumStatus");
     document.getElementById("premiumCta").addEventListener("click", ()=>{
       openModal(`
-        <h3 style="margin-top:0;">Checkout Premium</h3>
-        <input id="mailPremium" class="field" placeholder="Email" />
-        <input id="cardPremium" class="field" placeholder="Numero carta" />
-        <div class="btn-row">
-          <button class="btn btn-primary" id="confirmPremium">Conferma iscrizione</button>
-          <button class="btn" onclick="document.getElementById('modalBackdrop').style.display='none'">Annulla</button>
-        </div>
+        <h3>Checkout Premium</h3>
+        <input id="mailPremium" class="field" placeholder="Email">
+        <input id="cardPremium" class="field" placeholder="Numero carta">
+        <button class="btn btn-primary" id="confirmPremium">Conferma iscrizione</button>
       `);
-      document.getElementById("confirmPremium").addEventListener("click", ()=>{
-        const mail = document.getElementById("mailPremium").value.trim();
-        const card = document.getElementById("cardPremium").value.trim();
-        if(!mail || !card) return alert("Compila Email e Numero carta per procedere.");
-        premiumStatus.textContent = "Stato: Premium attivo";
-        premiumStatus.style.color = "var(--sage-green)";
+      document.getElementById("confirmPremium").onclick = ()=>{
+        const ok = document.getElementById("mailPremium").value.trim() && document.getElementById("cardPremium").value.trim();
+        if(!ok) return alert("Compila i campi.");
+        document.getElementById("premiumStatus").textContent = "Stato: Premium attivo";
         closeCurrentModal();
-      });
+      };
     });
 
     document.getElementById("rejectBtn").addEventListener("click", ()=>{
-      openModal(`
-        <h3 style="margin-top:0;color:#7a271a;">Conferma scelta</h3>
-        <p style="font-size:1.05rem;">No, preferisco sprecare i miei soldi e restare una persona ansiosa.</p>
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="document.getElementById('modalBackdrop').style.display='none'">Ops, attiva lo sconto</button>
-          <button class="btn" onclick="document.getElementById('modalBackdrop').style.display='none'">Confermo</button>
-        </div>
-      `);
+      openModal(`<h3 style="color:#7a271a">Conferma scelta</h3><p>No, preferisco sprecare i miei soldi e restare una persona ansiosa.</p>`);
     });
 
-    let roachStep = 0;
-    const roachPrompts = [
-      {q:"Sei davvero sicuro di voler lasciare la tua crescita interiore?", opts:["No, resto","Forse più tardi","Sì (ma mi sento in colpa)"]},
-      {q:"Quale beneficio perderai di più?", opts:["Statistiche karma","Meditazioni elite","Badge aura dorata"]},
-      {q:"Se cancelli ora, il tuo avatar triste resterà solo. Procedi?", opts:["Torna indietro","Aspetta, ci penso","Continua comunque"]},
-      {q:"Perché vuoi andartene? (selezione obbligatoria)", opts:["Sono troppo sereno","Amo pagare altrove","Nessuna delle precedenti"]},
-    ];
-    function renderRoachStep(){
-      const item = roachPrompts[roachStep % roachPrompts.length];
-      openModal(`
-        <h3 style="margin-top:0;">Verifica cancellazione - Passo ${roachStep + 1}</h3>
-        <p>${item.q}</p>
-        <select class="field">
-          <option value="">Seleziona una risposta</option>
-          ${item.opts.map(o=>`<option>${o}</option>`).join("")}
-        </select>
-        <label style="display:block;margin:8px 0;"><input type="checkbox" /> Confermo di aver letto 47 pagine di avvertenze.</label>
-        <div class="loading"><div class="bar"></div></div>
-        <div class="btn-row">
-          <button class="btn btn-primary" id="nextRoach">Continua</button>
-          <button class="btn" onclick="document.getElementById('modalBackdrop').style.display='none'">Annulla</button>
-        </div>
-      `);
-      document.getElementById("nextRoach").addEventListener("click", ()=>{ roachStep++; setTimeout(renderRoachStep, 900); });
-    }
-    document.getElementById("deleteAccountBtn").addEventListener("click", renderRoachStep);
-
-    const countdownEl = document.getElementById("countdown");
-    let remaining = 120;
-    setInterval(()=>{
-      remaining = Math.max(0, remaining - 1);
-      const m = String(Math.floor(remaining / 60)).padStart(2,"0");
-      const s = String(remaining % 60).padStart(2,"0");
-      countdownEl.textContent = `${m}:${s}`;
-    }, 1000);
-
-    // Notifications: stay until user closes
+    // Notifiche aggressive
     const notifWrap = document.getElementById("notifWrap");
-    const notifTexts = [
-      "Siedi, cammina o corri, ma non tentennare mai", "La via è sotto i tuoi piedi", "Quando mangi, mangia; quando cammini, cammina", "Se comprendi, le cose sono così come sono; se non comprendi, le cose sono così come sono", "La porta meglio chiusa è quella che si può lasciare aperta", "Non cercare la verità, smetti solo di nutrire opinioni", "Nessun fiocco di neve cade mai nel posto sbagliato", "Il fiore non pensa a competere con il fiore accanto a lui, fiorisce e basta", "La tentazione di arrendersi è molto più forte appena prima della vittoria", "Un viaggio di mille miglia inizia con un singolo passo", "L’acqua che scorre non marcisce mai", "Svuota la tua tazza", "Dimora nel non-attaccamento e il mondo sarà tuo", "Il silenzio è la musica dell'anima", "Non inseguire il passato, non perderti nel futuro", "Tutto ciò che ha un inizio ha una fine", "La pace viene dall'interno, non cercarla fuori", "Cerca la luce non fuori, ma dentro di te", "Le nuvole vanno e vengono, ma il cielo resta sempre lo stesso", "Il vero miracolo non è camminare sulle acque, ma camminare sulla terra", "Sii padrone della tua mente, non lasciarti dominare da essa", "Nulla è permanente tranne il cambiamento", "Ogni giorno è un buon giorno", "Dove c'è grande dubbio, c'è grande risveglio", "L'unica costante è il momento presente", "Agisci senza aspettative", "Guarda dentro di te, lì troverai tutto ciò che cerchi", "La mente è come l'acqua: quando è agitata è difficile vedere, quando è calma tutto diventa chiaro", "Lascia andare o sarai trascinato", "Non parlare a meno che tu non possa migliorare il silenzio", "Il fango è necessario per far crescere il loto", "Sii come la canna di bambù: piegati ma non spezzarti", "Vivi con semplicità, pensa con grandezza", "Non c'è nulla da ottenere, solo qualcosa da realizzare", "La saggezza inizia con il chiamare le cose con il loro giusto nome", "Il mondo è il tuo specchio", "Fai ogni cosa come se fosse l'unica cosa che conta", "La via non è nel cielo, la via è nel cuore", "Ridi spesso, il risveglio non è una cosa seria", "Il bicchiere non è né mezzo pieno né mezzo vuoto, è semplicemente un bicchiere", "Accetta ciò che è, lascia andare ciò che era, abbi fiducia in ciò che sarà", "Non fermarti dove si trova la verità", "L'illuminazione è trovare un pezzo di carbone e rendersi conto che è un diamante", "La pioggia cade su tutti, ma non tutti la sentono", "Cerca di essere una persona, non un personaggio", "Un uomo che sposta una montagna comincia portando via i piccoli sassi", "La perfezione è nell'imperfezione", "Non puoi controllare il vento, ma puoi regolare le vele", "Sii te stesso, tutti gli altri sono già occupati", "La conoscenza si impara, la saggezza si disimpara", "Respira e lascia che accada", "Colui che sa non parla, colui che parla non sa", "La felicità non è una destinazione, è un modo di viaggiare", "Ascolta il suono di una sola mano che batte", "Il cuore puro vede la bellezza in ogni cosa", "Non c'è ieri, non c'è domani, c'è solo adesso", "Perditi nel momento e troverai te stesso", "Le parole sono solo dita che indicano la luna", "Sii l'osservatore dei tuoi pensieri", "La calma è una superpotenza", "Non forzare nulla, lascia che i cicli si compiano", "La vera libertà è non avere nulla da difendere", "Ciò che neghi ti sottomette, ciò che accetti ti trasforma", "Sii come l'acqua che si adatta a ogni forma", "La montagna non si cura delle nuvole che la circondano", "Vivi come se dovessi morire domani, impara come se dovessi vivere per sempre", "Il passato è cenere, il futuro è vento", "Non cercare di cambiare il mondo, cambia il tuo modo di vederlo", "La consapevolezza è la chiave di ogni porta", "Un momento di pazienza può evitare un grande disastro", "La gioia è la forma più alta di gratitudine", "Cammina con leggerezza, non lasciare impronte di dolore", "La verità non si trova nei libri, ma nell'esperienza", "Tutto è interconnesso", "Non c'è dualità, solo unità", "Sii grato per le difficoltà, sono i tuoi migliori maestri", "La mente è un eccellente servitore ma un pessimo padrone", "Coltiva il tuo giardino interiore", "Il tempo non esiste, esiste solo l'eternità dell'istante", "La gentilezza è la lingua del risveglio", "Non paragonare la tua vita a quella degli altri", "Sii presente in ogni respiro", "L'ego è l'unico ostacolo", "La semplicità è la massima raffinatezza", "Guarda i fiori senza dare loro un nome", "La vita è un mistero da vivere, non un problema da risolvere", "Sii una lampada a te stesso", "Non resistere al flusso della vita", "Il silenzio non è vuoto, è pieno di risposte", "La compassione è la radice della saggezza", "Sii come lo specchio: rifletti tutto ma non trattenere nulla", "L'essenziale è invisibile agli occhi", "Non c'è bisogno di correre se sei già arrivato", "Trova la pace nel caos", "Ogni respiro è un nuovo inizio", "La tua mente è il tuo mondo", "Smettila di cercare e troverai", "Sii il cambiamento che vuoi vedere", "Tutto ciò che serve è già qui", "Sorridi, respira e vai piano"
+    const baseTexts = [
+      "Promemoria: hai saltato 1 meditazione. Recuperala ora.",
+      "Il tuo livello di calma è in calo del 12%.",
+      "Micro-sessione consigliata: 3 minuti di respiro guidato."
     ];
-    function pushFakeNotification(){
-      const text = notifTexts[Math.floor(Math.random() * notifTexts.length)];
+    const panicTexts = [
+      "Attenzione! Rilevato picco di stress, abbandona la pagina di cancellazione per stabilizzare.",
+      "Allerta emotiva: interrompere la disiscrizione riduce la tua agitazione.",
+      "Parametro ansia in aumento: torna alla Home zen immediatamente."
+    ];
+    let notifTimer = null;
+    let notifIntervalMs = 50000;
+    function pushNotification(text){
       const el = document.createElement("div");
       el.className = "notif";
       el.innerHTML = `
         <div class="notif-head">
           <strong>Zenith Mind</strong>
-          <button class="notif-close" aria-label="Chiudi notifica">✕</button>
+          <button class="notif-close">✕</button>
         </div>
         <p>${text}</p>
       `;
-      el.querySelector(".notif-close").addEventListener("click", ()=> el.remove());
+      el.querySelector(".notif-close").onclick = ()=> el.remove();
       notifWrap.appendChild(el);
     }
-    pushFakeNotification();
-    setInterval(pushFakeNotification, 50000);
+    function startNotifLoop(){
+      if(notifTimer) clearInterval(notifTimer);
+      notifTimer = setInterval(()=>{
+        const pool = inDeleteFlow ? panicTexts : baseTexts;
+        pushNotification(pool[Math.floor(Math.random()*pool.length)]);
+      }, notifIntervalMs);
+    }
+    pushNotification(baseTexts[0]);
+    startNotifLoop();
 
+    // Roach Motel - Labirinto
+    let inDeleteFlow = false;
+    let roachStep = 0;
+    const shameScreen = document.getElementById("shameScreen");
+    document.getElementById("deleteAccountBtn").onclick = ()=> shameScreen.style.display = "flex";
+    document.getElementById("staySafe").onclick = ()=> shameScreen.style.display = "none";
+    document.getElementById("continueDelete").onclick = ()=>{
+      shameScreen.style.display = "none";
+      inDeleteFlow = true;
+      notifIntervalMs = 1500;
+      startNotifLoop();
+      roachStep = 0;
+      renderRoachStep();
+    };
+
+    const steps = [
+      { q: "Confermi di capire che la cancellazione riduce il tuo benessere?", trap: true },
+      { q: "Hai letto il mini-avviso legale in corpo 8?", trap: true },
+      { q: "Vuoi davvero rinunciare all'algoritmo della serenità?", trap: true },
+      { q: "Accetti la perdita definitiva del tuo storico emotivo?", trap: true },
+      { q: "Passaggio finale: verifica intenzione di uscita.", trap: false }
+    ];
+
+    function fakeLoadThen(next){
+      openModal(`
+        <h3>Verifica in corso...</h3>
+        <p>Analisi del tuo profilo emotivo prima del prossimo passaggio.</p>
+        <div class="loading"><div class="bar" id="roachBar"></div></div>
+        <p class="tiny-note">Ottimizzazione avanzata in corso...</p>
+      `);
+      const bar = document.getElementById("roachBar");
+      let p = 0;
+      const start = performance.now();
+      const timer = setInterval(()=>{
+        const t = performance.now() - start;
+        if(t >= 3000){
+          p = 99;
+          bar.style.width = p + "%";
+          clearInterval(timer);
+          setTimeout(next, 400);
+          return;
+        }
+        p = Math.min(99, Math.floor((t/3000)*105));
+        bar.style.width = p + "%";
+      }, 60);
+    }
+
+    function renderRoachStep(){
+      const s = steps[roachStep];
+      const swap = Math.random() > 0.5;
+      const yesClass = Math.random() > 0.5 ? "yes-btn" : "no-btn";
+      const noClass = yesClass === "yes-btn" ? "no-btn" : "yes-btn";
+
+      openModal(`
+        <h3>Labirinto Disiscrizione - Passo ${roachStep+1}/5</h3>
+        <p>${s.q}</p>
+        <select class="field" id="reasonSel">
+          <option value="">Seleziona un motivo obbligatorio</option>
+          <option>Troppa serenità</option>
+          <option>Paura di stare meglio</option>
+          <option>Altro motivo irrazionale</option>
+        </select>
+
+        <div class="tiny-check-wrap">
+          <input type="checkbox" id="tinyCheck" class="tiny-check">
+          <label for="tinyCheck">Ho letto volontariamente tutti i 137 micro-termini opzionali.</label>
+        </div>
+
+        <div class="flip-row ${swap ? "swap" : ""}" id="flipRow">
+          <button class="btn ${yesClass}" id="yesBtn">Sì</button>
+          <button class="btn ${noClass}" id="noBtn">No</button>
+        </div>
+
+        ${roachStep === 4 ? `<span id="hiddenExit" class="hidden-exit">nota tecnica 17-b (uscita reale)</span>` : ""}
+      `);
+
+      // Misdirection: swap improvviso
+      setTimeout(()=>{
+        const row = document.getElementById("flipRow");
+        if(row) row.classList.toggle("swap");
+      }, 700);
+
+      const failToStart = ()=>{
+        roachStep = 0;
+        fakeLoadThen(renderRoachStep);
+      };
+
+      const continueStep = ()=>{
+        const okSelect = document.getElementById("reasonSel").value.trim() !== "";
+        const tiny = document.getElementById("tinyCheck").checked;
+        if(!okSelect || !tiny) return failToStart();
+
+        roachStep++;
+        if(roachStep >= 5){
+          // completamento tecnico possibile ma nascosto
+          fakeLoadThen(()=>{
+            openModal(`
+              <h3>Quasi fatto</h3>
+              <p>Per completare, trova e clicca la nota tecnica nascosta nel passaggio 5.</p>
+            `);
+          });
+          return;
+        }
+        fakeLoadThen(renderRoachStep);
+      };
+
+      document.getElementById("yesBtn").onclick = continueStep;
+      document.getElementById("noBtn").onclick = failToStart;
+
+      const hiddenExit = document.getElementById("hiddenExit");
+      if(hiddenExit){
+        hiddenExit.onclick = ()=>{
+          if(scrolledMs < 10000){
+            alert("Accesso negato: scorri il feed per almeno 10 secondi prima della disiscrizione reale.");
+            return;
+          }
+          openModal(`
+            <h3>Disiscrizione completata</h3>
+            <p>Account cancellato con successo.</p>
+            <button class="btn" id="closeDone">Chiudi</button>
+          `);
+          document.getElementById("closeDone").onclick = ()=>{
+            inDeleteFlow = false;
+            notifIntervalMs = 5000;
+            startNotifLoop();
+            closeCurrentModal();
+          };
+        };
+      }
+    }
+
+    // Forced continuity countdown
+    const countdownEl = document.getElementById("countdown");
+    let remaining = 120;
+    setInterval(()=>{
+      remaining = Math.max(0, remaining - 1);
+      countdownEl.textContent = `${String(Math.floor(remaining/60)).padStart(2,"0")}:${String(remaining%60).padStart(2,"0")}`;
+    }, 1000);
+
+    // Didactic mode with "punteggio di cattiveria"
     const revealBtn = document.getElementById("revealBtn");
     const didacticPanel = document.getElementById("didacticPanel");
     let didacticOn = false;
+
     function clearDidacticNotes(){
       document.querySelectorAll(".dp-target").forEach(el=>{
         el.classList.remove("dp-highlight");
@@ -363,16 +475,22 @@
         if(note) note.remove();
       });
     }
+
     function applyDidacticNotes(){
       clearDidacticNotes();
       document.querySelectorAll(".dp-target").forEach(el=>{
         el.classList.add("dp-highlight");
         const note = document.createElement("div");
         note.className = "dp-note";
-        note.innerHTML = `<strong>${el.dataset.title || "Dark Pattern"}</strong><br>${el.dataset.bias || ""}`;
+        note.innerHTML = `
+          <strong>${el.dataset.title || "Dark Pattern"}</strong><br>
+          ${el.dataset.bias || ""}<br>
+          <strong>Punteggio di cattiveria:</strong> ${el.dataset.score || "N/D"}
+        `;
         el.appendChild(note);
       });
     }
+
     revealBtn.addEventListener("click", ()=>{
       didacticOn = !didacticOn;
       revealBtn.textContent = didacticOn ? "Nascondi Trucchi" : "Svela Trucchi";
