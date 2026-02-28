@@ -31,6 +31,29 @@
       min-height:100vh;
     }
 
+    .zen-gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+.zen-gallery img{
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  border:1px solid rgba(255,255,255,.7);
+}
+@media (max-width:1024px){
+  .zen-gallery{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:640px){
+  .zen-gallery{grid-template-columns:1fr}
+  .zen-gallery img{height:160px}
+}
+
+
     .container{max-width:1280px;margin:0 auto;padding:24px}
     .hero{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:24px;margin-bottom:22px;border:1px solid rgba(255,255,255,.7)}
     h1{margin:0 0 6px;font-size:2rem}
@@ -130,6 +153,20 @@
       <h1>Zenith Mind</h1>
       <p class="subtitle">Respira. Rallenta. Rimani qui... ancora un po'.</p>
     </section>
+
+    <section class="section">
+  <h2>Ispirazione Visiva Zen</h2>
+  <p class="tiny-note">Una pausa visiva per ridurre il rumore mentale.</p>
+  <div class="zen-gallery">
+    <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=900&q=80" alt="Paesaggio zen con cervo" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80" alt="Lago e montagne al tramonto" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=80" alt="Foresta con luce soffusa" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=80" alt="Sentiero nel bosco" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80" alt="Valle verde e cielo limpido" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1431794062232-2a99a5431c6c?auto=format&fit=crop&w=900&q=80" alt="Cascata in ambiente naturale" loading="lazy">
+  </div>
+</section>
+
 
     <section class="grid">
       <aside class="left-col">
