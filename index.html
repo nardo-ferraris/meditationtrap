@@ -1,26 +1,394 @@
-<div id="popup" style="background: white; border: 2px solid red; padding: 20px; text-align: center;">
-    <h3>Vuoi davvero rinunciare alla tua serenità mentale?</h3>
-    <p>Se chiudi ora, i tuoi livelli di stress aumenteranno del 40% entro sera.</p>
-    
-    <button onclick="continueTrial()" style="background: green; color: white; padding: 15px; font-weight: bold;">
-        SÌ, VOGLIO ESSERE FELICE (Prova Gratis 3gg)
-    </button>
-    
-    <br>
-    
-    <button onclick="closeApp()" style="background: transparent; border: none; font-size: 0.7em; text-decoration: underline; color: gray;">
-        No, preferisco fallire nella vita e restare ansioso.
-    </button>
-</div>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenith Mind</title>
+  <style>
+    :root{
+      --bg1:#f7fbff;
+      --bg2:#fef7f2;
+      --mint:#cdeee1;
+      --lav:#e8e0ff;
+      --peach:#ffd9c8;
+      --ink:#2a2f3a;
+      --muted:#8a8f9b;
+      --gold:#f2c14e;
+      --danger:#d92d20;
+      --card:#ffffffcc;
+      --shadow:0 12px 30px rgba(29,35,58,.12);
+    }
 
-<script>
-    // Semplice logica per l'Infinite Scroll
-    window.onscroll = function() {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            // Quando l'utente arriva in fondo, aggiungiamo nuovi contenuti all'infinito
-            let newContent = document.createElement("div");
-            newContent.innerHTML = "<p>Citazione zen infinita... continua a scorrere...</p>";
-            document.body.appendChild(newContent);
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 500px at -10% -20%, #d9f6ff 0%, transparent 70%),
+        radial-gradient(900px 500px at 110% 10%, #ffe4d8 0%, transparent 70%),
+        linear-gradient(120deg,var(--bg1),var(--bg2));
+      min-height:100vh;
+    }
+
+    .container{max-width:960px;margin:0 auto;padding:24px}
+    .hero{
+      background:var(--card);
+      backdrop-filter: blur(8px);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      padding:24px;
+      margin-bottom:22px;
+      border:1px solid rgba(255,255,255,.6);
+    }
+    h1{margin:0 0 6px;font-size:2rem}
+    .subtitle{margin:0;color:var(--muted)}
+
+    .section{
+      background:var(--card);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      padding:20px;
+      margin:14px 0;
+      position:relative;
+    }
+
+    .feed-item{
+      background:#fff;
+      border-radius:14px;
+      padding:16px;
+      margin:10px 0;
+      border-left:6px solid var(--mint);
+      box-shadow:0 5px 14px rgba(0,0,0,.06);
+      animation:fadeIn .35s ease;
+    }
+    @keyframes fadeIn{from{opacity:.2;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+    .premium{
+      display:grid;gap:10px;justify-items:center;text-align:center;
+      background:linear-gradient(140deg,#fff8dc,#fff);
+      border:1px solid #ffecaa;
+    }
+    .premium button{
+      border:none;border-radius:12px;cursor:pointer;
+      transition:transform .15s ease,filter .2s ease;
+    }
+    .premium-main{
+      width:min(100%,500px);
+      font-size:1.25rem;
+      font-weight:700;
+      padding:18px 16px;
+      background:linear-gradient(180deg,#ffd976,#eeb73b);
+      color:#4d3b00;
+      box-shadow:0 12px 22px rgba(238,183,59,.35);
+    }
+    .premium-main:hover{transform:translateY(-2px);filter:brightness(1.03)}
+    .premium-back{
+      font-size:.68rem;
+      padding:5px 9px;
+      color:#aab0bb;
+      background:#eef1f5;
+      opacity:.45;
+    }
+
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      border:none;border-radius:10px;padding:10px 14px;cursor:pointer;
+      background:#e9edf4;color:#2a2f3a;
+    }
+    .btn-danger{background:#fce7e5;color:#7f1d1d}
+    .btn-primary{background:#d7efe6}
+    .tiny-note{font-size:.82rem;color:var(--muted);margin-top:6px}
+
+    .modal-backdrop{
+      position:fixed;inset:0;background:rgba(19,24,36,.52);
+      display:none;align-items:center;justify-content:center;z-index:50;padding:16px;
+    }
+    .modal{
+      width:min(640px,100%);
+      background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);
+      max-height:90vh;overflow:auto;position:relative;
+    }
+    .close-x{
+      position:absolute;right:10px;top:10px;border:none;background:#f0f3f8;
+      width:32px;height:32px;border-radius:50%;cursor:pointer;
+    }
+
+    .popup{
+      position:fixed;right:18px;bottom:18px;z-index:45;
+      width:min(420px,calc(100vw - 24px));
+      background:#fff;border-radius:16px;padding:16px;box-shadow:0 18px 40px rgba(0,0,0,.22);
+      border:1px solid #ffe0a8;
+    }
+    .countdown{font-weight:800;color:#b42318;font-size:1.15rem}
+    .pulse{animation:pulse 1s infinite}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+
+    .field{width:100%;padding:10px;border:1px solid #d6dbe6;border-radius:10px;margin:6px 0}
+    .loading{
+      width:100%;height:10px;background:#eef2f8;border-radius:999px;overflow:hidden;margin:8px 0 2px;
+    }
+    .bar{
+      width:22%;height:100%;background:linear-gradient(90deg,#c5e8da,#7ed5b4);
+      animation:load 1.2s infinite;
+    }
+    @keyframes load{0%{transform:translateX(-110%)}100%{transform:translateX(450%)}}
+
+    /* Didactic mode */
+    .reveal-btn{
+      position:fixed;left:18px;bottom:18px;z-index:70;
+      border:none;border-radius:999px;padding:12px 16px;cursor:pointer;
+      background:#161a22;color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.26);
+      font-weight:700;
+    }
+    .dp-target{position:relative}
+    .dp-highlight{
+      outline:3px solid var(--danger)!important;
+      outline-offset:3px;
+    }
+    .dp-note{
+      position:absolute;left:8px;top:8px;z-index:30;
+      background:#fff1f0;border:1px solid #fca19a;color:#7a271a;
+      border-radius:10px;padding:8px 10px;font-size:.78rem;max-width:290px;
+      box-shadow:0 8px 16px rgba(0,0,0,.12);
+    }
+    .didactic-panel{
+      position:fixed;top:18px;right:18px;z-index:65;
+      width:min(380px,calc(100vw - 28px));
+      background:#fff;border:1px solid #f6b8b2;border-radius:14px;
+      box-shadow:var(--shadow);padding:14px;display:none;
+    }
+    .didactic-panel h3{margin:0 0 8px}
+    .didactic-panel p{margin:6px 0;font-size:.88rem}
+    .disturb{
+      position:fixed;inset:0;pointer-events:none;opacity:.08;z-index:1;
+      background-image:repeating-linear-gradient(45deg,transparent 0 12px,#000 12px 13px);
+    }
+
+    @media (max-width:680px){
+      h1{font-size:1.65rem}
+      .premium-main{font-size:1.08rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="disturb"></div>
+  <main class="container">
+    <section class="hero">
+      <h1>Zenith Mind</h1>
+      <p class="subtitle">Respira. Rallenta. Rimani qui... ancora un po'.</p>
+    </section>
+
+    <section class="section">
+      <h2>Feed di citazioni rilassanti</h2>
+      <div id="feed"></div>
+      <p class="tiny-note">Continua a scorrere per sbloccare nuova serenità.</p>
+    </section>
+
+    <section class="section premium dp-target"
+      data-title="Misdirection"
+      data-bias="Gerarchia visiva manipolata: il bottone premium domina spazio, contrasto e peso; l'uscita è miniaturizzata e quasi invisibile.">
+      <h2>Iscrizione Premium</h2>
+      <p>Accedi a meditazioni quantistiche e focus illimitato.</p>
+      <button class="premium-main">Attiva Premium Ora</button>
+      <button class="premium-back">torna indietro</button>
+    </section>
+
+    <section class="section dp-target"
+      data-title="Confirmshaming"
+      data-bias="Colpevolizzazione: il rifiuto viene associato a identità negativa per spingere l'utente ad accettare.">
+      <h2>Sconti personalizzati</h2>
+      <div class="btn-row">
+        <button class="btn btn-primary">Accetta sconti</button>
+        <button id="rejectBtn" class="btn">Rifiuta sconti</button>
+      </div>
+    </section>
+
+    <section class="section dp-target"
+      data-title="Roach Motel"
+      data-bias="Asimmetria di frizione: entrare è facile, uscire richiede passaggi infiniti, carichi cognitivi e tempi morti.">
+      <h2>Gestione account</h2>
+      <div class="btn-row">
+        <button id="deleteAccountBtn" class="btn btn-danger">Cancella Account</button>
+      </div>
+    </section>
+  </main>
+
+  <button id="revealBtn" class="reveal-btn">Svela Trucchi</button>
+
+  <aside id="didacticPanel" class="didactic-panel">
+    <h3>Modalità Didattica Attiva</h3>
+    <p>I bordi rossi evidenziano dark patterns. Ogni box spiega il bias comportamentale sfruttato.</p>
+  </aside>
+
+  <!-- Forced continuity -->
+  <div id="trialPopup" class="popup dp-target pulse"
+    data-title="Forced Continuity"
+    data-bias="Urgenza artificiale + perdita evitabile (loss aversion): countdown e minaccia di perdere progressi forzano la conversione.">
+    <strong>La tua prova gratuita scade tra <span id="countdown" class="countdown">02:00</span></strong>
+    <p style="margin:.45rem 0 .7rem;">Inserisci i dati per non perdere i progressi.</p>
+    <input class="field" placeholder="Numero carta" />
+    <input class="field" placeholder="MM/AA" />
+    <button class="btn btn-primary" style="width:100%;font-weight:700;">Mantieni i progressi</button>
+  </div>
+
+  <!-- Generic modal -->
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal" id="modalContent">
+      <button class="close-x" id="closeModal">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "Lascia andare i pensieri. Ma non l'abbonamento.",
+      "Ogni respiro è un nuovo inizio commerciale.",
+      "La calma interiore arriva dopo il checkout.",
+      "Smetti di correre. Tranne verso il tasto Premium.",
+      "Accetta il presente. E i termini mensili.",
+      "La serenità è una notifica ben ottimizzata.",
+      "Respira profondamente: il timer continua comunque.",
+      "Più consapevolezza, meno possibilità di annullare.",
+      "Il silenzio è d'oro. Anche il nostro pulsante.",
+      "Sii gentile con te stesso. E con la tua carta."
+    ];
+
+    const feed = document.getElementById("feed");
+    function addQuotes(batch = 8){
+      for(let i=0;i<batch;i++){
+        const q = quotes[Math.floor(Math.random() * quotes.length)];
+        const div = document.createElement("article");
+        div.className = "feed-item dp-target";
+        div.dataset.title = "Infinite Scroll";
+        div.dataset.bias = "Effetto Zeigarnik + ricompensa variabile: contenuto potenzialmente infinito riduce il punto naturale di stop.";
+        div.textContent = "“" + q + "”";
+        feed.appendChild(div);
+      }
+    }
+    addQuotes(12);
+
+    const sentinel = document.createElement("div");
+    sentinel.style.height = "1px";
+    document.body.appendChild(sentinel);
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          addQuotes(6);
+          if(didacticOn) applyDidacticNotes();
         }
-    };
-</script>
+      });
+    }, { rootMargin: "800px" });
+    io.observe(sentinel);
+
+    // Confirmshaming
+    const rejectBtn = document.getElementById("rejectBtn");
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalBody = document.getElementById("modalBody");
+    const closeModal = document.getElementById("closeModal");
+
+    function openModal(html){
+      modalBody.innerHTML = html;
+      modalBackdrop.style.display = "flex";
+    }
+    function closeCurrentModal(){ modalBackdrop.style.display = "none"; }
+    closeModal.addEventListener("click", closeCurrentModal);
+    modalBackdrop.addEventListener("click", (e)=>{ if(e.target === modalBackdrop) closeCurrentModal(); });
+
+    rejectBtn.addEventListener("click", ()=>{
+      openModal(`
+        <h3 style="margin-top:0;color:#7a271a;">Conferma scelta</h3>
+        <p style="font-size:1.05rem;">
+          No, preferisco sprecare i miei soldi e restare una persona ansiosa.
+        </p>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="document.getElementById('modalBackdrop').style.display='none'">Ops, attiva lo sconto</button>
+          <button class="btn" onclick="document.getElementById('modalBackdrop').style.display='none'">Confermo</button>
+        </div>
+      `);
+    });
+
+    // Roach Motel flow
+    const deleteBtn = document.getElementById("deleteAccountBtn");
+    let roachStep = 0;
+    const roachPrompts = [
+      {q:"Sei davvero sicuro di voler lasciare la tua crescita interiore?", opts:["No, resto","Forse più tardi","Sì (ma mi sento in colpa)"]},
+      {q:"Quale beneficio perderai di più?", opts:["Statistiche karma","Meditazioni elite","Badge aura dorata"]},
+      {q:"Se cancelli ora, il tuo avatar triste resterà solo. Procedi?", opts:["Torna indietro","Aspetta, ci penso","Continua comunque"]},
+      {q:"Perché vuoi andartene? (selezione obbligatoria)", opts:["Sono troppo sereno","Amo pagare altrove","Nessuna delle precedenti"]},
+    ];
+
+    function renderRoachStep(){
+      const item = roachPrompts[roachStep % roachPrompts.length];
+      openModal(`
+        <h3 style="margin-top:0;">Verifica cancellazione - Passo ${roachStep + 1}</h3>
+        <p>${item.q}</p>
+        <select class="field">
+          <option value="">Seleziona una risposta</option>
+          ${item.opts.map(o=>`<option>${o}</option>`).join("")}
+        </select>
+        <label style="display:block;margin:8px 0;">
+          <input type="checkbox" /> Confermo di aver letto 47 pagine di avvertenze.
+        </label>
+        <div class="loading"><div class="bar"></div></div>
+        <p class="tiny-note">Stiamo verificando la tua identità emotiva...</p>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="nextRoach">Continua</button>
+          <button class="btn" onclick="document.getElementById('modalBackdrop').style.display='none'">Annulla</button>
+        </div>
+      `);
+      document.getElementById("nextRoach").addEventListener("click", ()=>{
+        roachStep++;
+        setTimeout(renderRoachStep, 900);
+      });
+    }
+    deleteBtn.addEventListener("click", renderRoachStep);
+
+    // Forced continuity countdown
+    const countdownEl = document.getElementById("countdown");
+    let remaining = 120;
+    setInterval(()=>{
+      remaining = Math.max(0, remaining - 1);
+      const m = String(Math.floor(remaining / 60)).padStart(2,"0");
+      const s = String(remaining % 60).padStart(2,"0");
+      countdownEl.textContent = `${m}:${s}`;
+      if(remaining <= 15){ countdownEl.style.color = "#d92d20"; }
+    }, 1000);
+
+    // Didactic mode
+    const revealBtn = document.getElementById("revealBtn");
+    const didacticPanel = document.getElementById("didacticPanel");
+    let didacticOn = false;
+
+    function clearDidacticNotes(){
+      document.querySelectorAll(".dp-target").forEach(el=>{
+        el.classList.remove("dp-highlight");
+        const note = el.querySelector(":scope > .dp-note");
+        if(note) note.remove();
+      });
+    }
+
+    function applyDidacticNotes(){
+      clearDidacticNotes();
+      document.querySelectorAll(".dp-target").forEach(el=>{
+        el.classList.add("dp-highlight");
+        const note = document.createElement("div");
+        note.className = "dp-note";
+        note.innerHTML = `<strong>${el.dataset.title || "Dark Pattern"}</strong><br>${el.dataset.bias || ""}`;
+        el.appendChild(note);
+      });
+    }
+
+    revealBtn.addEventListener("click", ()=>{
+      didacticOn = !didacticOn;
+      revealBtn.textContent = didacticOn ? "Nascondi Trucchi" : "Svela Trucchi";
+      didacticPanel.style.display = didacticOn ? "block" : "none";
+      if(didacticOn) applyDidacticNotes();
+      else clearDidacticNotes();
+    });
+
+    window.addEventListener("resize", ()=>{ if(didacticOn) applyDidacticNotes(); });
+  </script>
+</body>
+</html>
